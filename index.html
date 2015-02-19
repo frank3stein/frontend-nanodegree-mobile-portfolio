@@ -14,6 +14,18 @@
     <link async href="css/print.css" rel="stylesheet">
 
     <script async>
+    function logCRP() {
+  var t = window.performance.timing,
+    dcl = t.domContentLoadedEventStart - t.domLoading,
+    complete = t.domComplete - t.domLoading;
+  var stats = document.getElementById("crp-stats");
+  stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
+}
+
+window.addEventListener("load", function(event) {
+  logCRP();
+});
+
       (function(w,g){w['GoogleAnalyticsObject']=g;
       w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
 
@@ -22,7 +34,24 @@
       ga('send', 'pageview');
     </script>
     <script async src="http://www.google-analytics.com/analytics.js"></script>
-    <script async src="js/perfmatters.js"></script>
+    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
+    <link href="css/style.css" rel="stylesheet">
+    <link async href="css/print.css" rel="stylesheet">
+    <!-- Google Fonts embed code -->
+<script type="text/javascript">
+(function() {
+var link_element = document.createElement("link"),
+s = document.getElementsByTagName("script")[0];
+if (window.location.protocol !== "http:" && window.location.protocol !== "https:") {
+link_element.href = "http:";
+}
+link_element.href += "//fonts.googleapis.com/css?family=Open+Sans:400,700";
+link_element.rel = "stylesheet";
+link_element.type = "text/css";
+s.parentNode.insertBefore(link_element, s);
+})();
+</script>
+
   </head>
 
   <body>
