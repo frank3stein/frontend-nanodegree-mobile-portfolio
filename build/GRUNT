@@ -1,0 +1,8 @@
+GRUNT
+This folder is the build folder. Once you run grunt; 
+
+
+-It pulls the html file index and minifies it.
+-It concatanates the css files first and puts them to build folder from css folder.
+-It minifies the concatanated css file and saves it as *.min.css
+-It starts the watch function to watch for changes. 
