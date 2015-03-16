@@ -10,6 +10,29 @@ module.exports= function(grunt){
       			dest: 'build/style.css'
     		}
  		},
+		imagemin: {                          // Task
+    // static: {                          // Target
+    //   options: {                       // Target options
+    //     optimizationLevel: 3,
+    //     svgoPlugins: [{ removeViewBox: false }],
+    //     use: [mozjpeg()]
+    //   },
+    //   files: {                         // Dictionary of files
+    //     'dist/img.png': 'src/img.png', // 'destination': 'source'
+    //     'dist/img.jpg': 'src/img.jpg',
+    //     'dist/img.gif': 'src/img.gif'
+    //   }
+    // },
+    dynamic: {                         // Another target
+      files: [{
+        expand: true,                  // Enable dynamic expansion
+        cwd: 'img/',                   // Src matches are relative to this path
+        // src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
+				src:['**/*.{png,jpg,gif}'],
+        dest: 'build/img/'                  // Destination path prefix
+      	}]
+    	}
+  	},
  		// Minify all contents of a build directory and add a .min.css extension
  		cssmin: {
  			target: {
@@ -23,18 +46,18 @@ module.exports= function(grunt){
   			}
 		},
 
-		htmlmin: {                                     // Task 
-    		dist: {                                      // Target 
-      			options: {                                 // Target options 
+		htmlmin: {                                     // Task
+    		dist: {                                      // Target
+      			options: {                                 // Target options
         			removeComments: true,
         			collapseWhitespace: true
       			},
-      			files: {                                   // Dictionary of files 
-        		'build/index.html': 'index.html'     // 'destination': 'source' 
+      			files: {                                   // Dictionary of files
+        		'build/index.html': 'index.html'     // 'destination': 'source'
         		// 'dist/contact.html': 'src/contact.html' if you want to add another file
       			}
     		},
-    		// dev: {                                       // Another target 
+    		// dev: {                                       // Another target
       // 			files: {
       //   			'build/index.html': 'index.html',
       //   			'/contact.html': 'src/contact.html'
@@ -45,7 +68,7 @@ module.exports= function(grunt){
   		 uglify: {
     		my_target: {
       			files: {
-        			'build/main.min.js': ['js/perfmatters.js'] //'destination': 'source' 
+        			'build/main.min.js': ['js/perfmatters.js'] //'destination': 'source'
       			}
     		}
   		},
@@ -71,8 +94,15 @@ module.exports= function(grunt){
     				options: {
       				spawn: false,
     				}
-  			}  			  			
-		}	
+  			},
+				img:{
+					files:['img/*.{png,jpg,gif}'],
+					tasks:['imagemin'],
+						options:{
+							spawn:false,
+						}
+				}
+		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -81,5 +111,5 @@ module.exports= function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.registerTask('default',['concat', 'htmlmin', 'cssmin', 'uglify', 'watch']);
+	grunt.registerTask('default',['concat', 'htmlmin', 'cssmin', 'uglify','imagemin', 'watch']);
 };
